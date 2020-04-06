@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 //import components from react native
 import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View } from 'react-native';
+const firebase = require("firebase");
+require("firebase/firestore");
 
 // create Start screen class
 export default class Start extends React.Component {
@@ -16,47 +18,46 @@ export default class Start extends React.Component {
 
   //renders the components
   render(){
-  return (
-    /* backgroundimage fullscreen */
-    <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.backImage}>
-      <Text style={styles.title}>ChatApp</Text>
-      <View style={styles.container}>
-        <TextInput style={styles.nameBox}
-          onChangeText={(name) => this.setState({name})}
-          value={this.state.name}
-          placeholder='Your Name'
-        />
-        <Text style={styles.text}>
-          Choose Background Color:
-        </Text>
-        <View style={styles.colorSelection}>
-          <TouchableOpacity
-            onPress={() => this.setState({ color: '#090C08'})}
-            style={[styles.colorButton, styles.color1]}
+    return (
+      <ImageBackground source={require('../assets/backgroundImage.png')} style={styles.backImage}>
+        <Text style={styles.title}>Chat App</Text>
+        <View style={styles.container}>
+          <TextInput style={styles.nameBox}
+            onChangeText={(name) => this.setState({name})}
+            value={this.state.name}
+            placeholder='Your Name'
           />
-          <TouchableOpacity
-            onPress={() => this.setState({ color: '#474056'})}
-            style={[styles.colorButton, styles.color2]}
-          />
-          <TouchableOpacity
-            onPress={() => this.setState({ color: '#8A95A5'})}
-            style={[styles.colorButton, styles.color3]}
-          />
-          <TouchableOpacity
-            onPress={() => this.setState({ color: '#B9C6AE'})}
-            style={[styles.colorButton, styles.color4]}
+          <Text style={styles.text}>
+            Choose Background Color:
+          </Text>
+          <View style={styles.colorSelection}>
+            <TouchableOpacity
+              onPress={() => this.setState({ color: '#090C08'})}
+              style={[styles.colorButton, styles.color1]}
+            />
+            <TouchableOpacity
+              onPress={() => this.setState({ color: '#474056'})}
+              style={[styles.colorButton, styles.color2]}
+            />
+            <TouchableOpacity
+              onPress={() => this.setState({ color: '#8A95A5'})}
+              style={[styles.colorButton, styles.color3]}
+            />
+            <TouchableOpacity
+              onPress={() => this.setState({ color: '#B9C6AE'})}
+              style={[styles.colorButton, styles.color4]}
+            />
+          </View>
+          <Button
+            style={styles.button}
+            title="Start Chatting"
+            onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color})}
           />
         </View>
-        <Button
-          style={styles.button}
-          title="Start Chatting"
-          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color})}
-        />
-      </View>
-    </ImageBackground>
-  );
-}
-}
+      </ImageBackground>
+    );
+  }
+  }
 
 const styles = StyleSheet.create({
   container: {
