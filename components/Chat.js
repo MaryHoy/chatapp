@@ -3,8 +3,10 @@ import KeyboardSpacer from "react-native-keyboard-spacer";
 import React, { Component } from "react";
 import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
 import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
+import CustomActions from './CustomActions';
 import firebase from "firebase";
 import "firebase/firestore";
+import MapView from 'react-native-maps';
 
 export default class Chat extends React.Component {
   constructor() {
@@ -65,6 +67,8 @@ export default class Chat extends React.Component {
         text: data.text,
         createdAt: data.createdAt.toDate(),
         user: data.user,
+        image: data.image || '',
+        location: data.location || null
       });
     });
     this.setState({
@@ -80,6 +84,8 @@ export default class Chat extends React.Component {
         createdAt: this.state.messages[0].createdAt,
         user: this.state.user,
         uid: this.state.uid,
+        image: this.state.messages[0].image || '',
+        location: this.state.messages[0].location || null
     });
   }
 
@@ -126,8 +132,6 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     // listen to authentication events
-    this.getMessages();
-    console.log(this.state.messages);
     NetInfo.isConnected.fetch().then(isConnected => {
       if (isConnected == true) {
         console.log('online');
@@ -172,43 +176,79 @@ export default class Chat extends React.Component {
   }
 
   //Gifted Chat functions
-  renderInputToolbar(props){
-    if (this.state.isConnected == false){
-    } else {
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#123458'
+          },
+          left: {
+            backgroundColor: '#6495ED'
+          }
+        }}
+      />
+    )
+  }
+  
+    renderInputToolbar(props){
+      if (this.state.isConnected == false){
+      } else {
+        return (
+          <InputToolbar
+            {...props}
+          />
+        )
+      }
+    }
+  
+    renderCustomActions = (props) => {
+     return <CustomActions {...props} />;
+   };
+  
+   renderCustomView (props) {
+     const { currentMessage } = props;
+     if (currentMessage.location) {
+       return (
+           <MapView
+             style={{width: 150, height: 100, borderRadius: 13, margin: 3}}
+             region={{latitude: currentMessage.location.latitude, longitude: currentMessage.location.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421}}
+           />
+       );
+     }
+     return null;
+   }
+  
+    render() {
       return (
-        <InputToolbar
-          {...props}
-        />
-      )
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: this.props.navigation.state.params.color
+          }}
+        >
+          <GiftedChat
+            renderBubble={this.renderBubble.bind(this)}
+            renderInputToolbar={this.renderInputToolbar.bind(this)}
+            renderActions={this.renderCustomActions.bind(this)}
+            renderCustomView={this.renderCustomView}
+            messages={this.state.messages}
+            onSend={messages => this.onSend(messages)}
+            user={this.state.user}
+          />
+          {Platform.OS === "android" ? <KeyboardSpacer /> : null}
+        </View>
+      );
     }
   }
-
-  render() {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: this.props.navigation.state.params.color
-        }}
-      >
-        <GiftedChat
-          renderInputToolbar={this.renderInputToolbar.bind(this)}
-          messages={this.state.messages}
-          onSend={messages => this.onSend(messages)}
-          user={this.state.user}
-        />
-        {Platform.OS === "android" ? <KeyboardSpacer /> : null}
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%"
-  }
-});
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%"
+    }
+  });
