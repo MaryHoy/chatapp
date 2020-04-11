@@ -2,11 +2,11 @@
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import React, { Component } from "react";
 import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
-import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import CustomActions from './CustomActions';
 import firebase from "firebase";
 import "firebase/firestore";
-import MapView from 'react-native-maps';
+import { MapView } from 'react-native-maps';
 
 export default class Chat extends React.Component {
   constructor() {
