@@ -1,6 +1,6 @@
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import PropTypes from 'prop-types';
-import React, { Component } from "react";
+import React from 'react';
 import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
 import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
 
@@ -10,7 +10,6 @@ import "firebase/firestore";
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import { MapView } from 'react-native-maps';
 
 
 export default class CustomActions extends React.Component {

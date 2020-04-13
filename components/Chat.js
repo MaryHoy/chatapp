@@ -1,7 +1,6 @@
-  
+import React from 'react';
 import KeyboardSpacer from "react-native-keyboard-spacer";
-import React, { Component } from "react";
-import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
+import { StyleSheet, BackgroundImage, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import CustomActions from './CustomActions';
 import firebase from "firebase";

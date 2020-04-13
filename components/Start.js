@@ -19,7 +19,7 @@ export default class Start extends React.Component {
   //renders the components
   render(){
     return (
-      <ImageBackground source={require('../assets/backgroundImage.png')} style={styles.backImage}>
+      <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.backImage}>
         <Text style={styles.title}>Chat App</Text>
         <View style={styles.container}>
           <TextInput style={styles.nameBox}
