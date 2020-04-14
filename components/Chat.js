@@ -5,7 +5,7 @@ import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import CustomActions from './CustomActions';
 import firebase from "firebase";
 import "firebase/firestore";
-import { MapView } from 'react-native-maps';
+import MapView from 'react-native-maps';
 
 export default class Chat extends React.Component {
   constructor() {
