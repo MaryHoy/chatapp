@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
 import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
-import MapView from 'react-native-maps';
 import firebase from "firebase";
 import "firebase/firestore";
 
