@@ -1,15 +1,13 @@
-import KeyboardSpacer from "react-native-keyboard-spacer";
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, ImageBackground, Text, TextInput, Alert, TouchableOpacity, Button, View, Platform, NetInfo, AsyncStorage } from "react-native";
-import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
-import firebase from "firebase";
-import "firebase/firestore";
-
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+//import permissions and imagepicker
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-
+// import firebase
+import firebase from "firebase";
+import "firebase/firestore";
 
 export default class CustomActions extends React.Component {
 
