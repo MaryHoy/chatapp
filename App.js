@@ -1,21 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView } from 'react-native';
 // import react Navigation
-import Start from './components/Start';
-import Chat from './components/Chat';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-// import the screens
-const firebase = require("firebase"); 
-require("firebase/firestore");
+// imports the screens
+import Start from './components/Start.js';
+import Chat from './components/Chat.js';
 
-// Create the navigator
+// Creates the navigator
 const navigator = createStackNavigator({
-    Start: { screen: Start},
-    Chat: { screen: Chat}
+  Start: {
+    screen: Start,
+    navigationOptions: {
+      header: null
+    } 
+  },
+  Chat: { screen: Chat }
 });
 
 const navigatorContainer = createAppContainer(navigator);
-// Export as the root component
+// Export it as the root component
 export default navigatorContainer;
