@@ -48,27 +48,30 @@ export default class Chat extends React.Component {
     };
   };
 
-  get user() {
-    return {
-      name: this.props.navigation.state.params.name,
-      _id: this.state.uid,
-      id: this.state.uid,
+// default values set for users name and avatar
+setUser = (_id, name = 'Guest User', avatar = 'https://placeimg.com/640/480/any') => {
+  this.setState({
+    user: {
+      _id: _id,
+      name: name,
+      avatar: avatar,
     }
-  }
+  })
+}
 
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // goes through each document
     querySnapshot.forEach(doc => {
-      // gets the QueryDocumentSnapshot's data
-      var data = doc.data();
+      // gets the QueryDocumentSnapshot data
+      let data = doc.data();
       messages.push({
         _id: data._id,
         text: data.text,
         createdAt: data.createdAt.toDate(),
         user: data.user,
         image: data.image || '',
-        location: data.location || null
+        location: data.location || null,
       });
     });
     this.setState({
@@ -143,20 +146,24 @@ export default class Chat extends React.Component {
             await firebase.auth().signInAnonymously();
           }
           //updates user state with current active user data
-          this.setState({
-            uid: user.uid,
-            user: {
-              _id: user.uid,
-              name: this.props.navigation.state.params.name,
-              avatar: '',
-            },
-            loggedInText: "Hello"
-          });
+          if(!this.props.navigation.state.params.name){
+            this.setUser(user.uid );
+            this.setState({
+              uid: user.uid,
+              loggedInText: "Hello!"
+            });
+          }else{
+            this.setUser(user.uid, this.props.navigation.state.params.name )
+            this.setState({
+              uid: user.uid,
+              loggedInText: "Hello!"
+            });
+          }
 
       // create a reference to the active user messages
         this.referenceMessageUser = firebase.firestore().collection("messages");
         // listen for collection changes for current user
-        this.unsubscribeMessageUser = this.referenceMessageUser.onSnapshot(this.onCollectionUpdate);
+        this.unsubscribeMessageUser = this.referenceMessageUser.orderBy('createdAt', 'desc').onSnapshot(this.onCollectionUpdate);
       });
     } else {
       console.log('offline');

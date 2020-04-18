@@ -13,6 +13,7 @@ export default class CustomActions extends React.Component {
 
 
   pickImage = async () => {
+    try{
     const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
     if(status === 'granted'){
@@ -25,9 +26,13 @@ export default class CustomActions extends React.Component {
         this.props.onSend({ image: imageUrl})
       }
     }
+  } catch (error){
+    console.log(error.message)
   }
+}
 
-  takePhoto = async () =>{
+  takePhoto = async () => {
+    try{
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
       if(status === 'granted'){
         let result = await ImagePicker.launchCameraAsync({
@@ -38,9 +43,13 @@ export default class CustomActions extends React.Component {
           this.props.onSend({ image: imageUrl})
         }
       }
+    } catch(error){
+      console.log(error.message)
     }
+  }
 
   getLocation = async () => {
+    try{
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
 
     if(status === 'granted'){
@@ -56,9 +65,13 @@ export default class CustomActions extends React.Component {
         })
       }
     }
+  } catch(error){
+    console.log(error)
   }
+}
 
   uploadImage = async (uri) => {
+    try{
     const blob = await new Promise((resolve, reject) =>{
       const xhr = new XMLHttpRequest();
       xhr.onload = function(){
@@ -72,7 +85,7 @@ export default class CustomActions extends React.Component {
       xhr.open('GET', uri, true);
       xhr.send(null);
     });
-    //Creates unique file name for each image uploaded
+    //this will make a unique file name for each image uploaded
     let uriParts = uri.split('/')
     let imageName = uriParts[uriParts.length - 1]
 
@@ -81,12 +94,15 @@ export default class CustomActions extends React.Component {
     blob.close();
     const imageUrl = await snapshot.ref.getDownloadURL();
     return imageUrl;
+  }catch(error){
+    console.log(error)
   }
+}
 
 
 
   onActionPress = () => {
-      const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+      const options = ['Choose From Your Library', 'Take A Picture', 'Send Your Location', 'Cancel'];
       const cancelButtonIndex = options.length - 1;
       this.context.actionSheet().showActionSheetWithOptions(
         {
