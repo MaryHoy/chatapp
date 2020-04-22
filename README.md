@@ -26,8 +26,9 @@ npm start
 
 Dependencies:
 
-@firebase/firestore": "^1.13.1"
 
+    @firebase/firestore": "^1.13.1"
+    
     "@react-native-community/masked-view": "^0.1.5"
 
     "@react-native-community/netinfo": "^4.7.0"
