@@ -2,6 +2,8 @@
 
 A react app that allows users to chat with features such as taking images/adding images from library, sending location, and reading messages offline.
 
+[DEMO](https://reactnative.gallery/FaridSafi/gifted-chat) 
+
 ## Getting Started
 
 Expo must be installed prior to running the app:
