@@ -4,23 +4,25 @@ A react app that allows users to chat with features such as taking images/adding
 
 ## Getting Started
 
-To run the app fist install Expo. Do this by running
+Expo must be installed prior to running the app:
 
+```
 npm install expo-cli -g
+```
 
-in your project folder.
+For further instructions or to run the app on android smart phone, expo inbstructions can be found here: [Expo Docs](https://docs.expo.io/) 
 
-Also download the Expo App to your smartphone. For more details on Expo go here.
+Firebase is used for the data storage in this project. Instructions on using Firebase can be found here: [Firebase Docs](https://firebase.google.com/docs)
 
-If you want to run the App on your Notebook install Android Studio for Android emulator or XCode for iOs emulator.
+To start App (from the project folder):
 
-Create a Firebase account here. Firebase is used for data storage in this project. Check the firebase documentation for more details, especially on how to initializing Cloud Firestore with your individual credentials.
-
-To start App run npm start in your project folder.
+```
+npm start
+```
 
 ### Prerequisites
 
-Modules:
+Dependencies:
 
 @firebase/firestore": "^1.13.1",
     "@react-native-community/masked-view": "^0.1.5",
@@ -44,13 +46,15 @@ Modules:
     "react-navigation": "^4.1.1",
     "react-navigation-stack": "^2.1.1"
 
+to install:
+
 ```
-to install: npm install
+npm install
 ```
 
 ### Libraries
 
-GiftedChat
+* [Gifted Chat](https://github.com/FaridSafi/react-native-gifted-chat/blob/master/README.md) 
 
 
 ## Trello for Chat App
